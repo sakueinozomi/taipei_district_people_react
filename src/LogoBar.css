@@ -1,0 +1,15 @@
+.logo-bar {
+    min-width: 300px;
+    padding: 30px 0;
+}
+.logo {
+    background-image: url("./asset/taipeilogo.png");
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    margin: 0 auto;
+}
+.title {
+    text-align: center;
+    margin-top: 1em;
+}
