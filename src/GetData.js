@@ -23,8 +23,22 @@ ChartJS.register(
 );
 
 export const GetData = () => {
-    const [allDistrict, setAllDistrict] = useState([])
-    // const [district, setDistrict] = useState("")
+    let res = data[0].result.records;
+    if (isNaN(parseInt(res[0].statistic_yyy, 10))){
+        res.shift()
+    }
+    const districtSet = new Set();
+    let districtArray = [];
+    let districtObjArray = [];
+    res.forEach(e => districtSet.add(e.site_id));
+    districtArray = [...districtSet]
+    for (let i = 0; i < districtArray.length; i++) {
+        districtObjArray.push({value: districtArray[i], label: districtArray[i]})
+    }
+
+    // console.log(districtObjArray)
+
+    const [district, setDistrict] = useState(districtObjArray[0].data)
     // const [singleF, setSingleF] = useState("")
     // const [singleM, setSingleM] = useState("")
     // const [groupF, setGroupF] = useState("")
@@ -43,7 +57,7 @@ export const GetData = () => {
     const female = [20, 59];
     const male = [34, 17];
 
-    const data = {
+    const chartData = {
         labels,
         datasets: [
           {
@@ -60,25 +74,22 @@ export const GetData = () => {
         ],
     };
 
-    // let res = data[0].result.records;
-    // if (isNaN(parseInt(res[0].statistic_yyy, 10))){
-    //     res.shift()
-    // }
-    // let allDistr = [];
-
-    const selectOptions = [
-        { value: '新北市板橋區', label: '新北市板橋區' },
-        { value: '新北市三重區', label: '新北市三重區' }
-    ];
 
     return (
         <>
             <main>
                 <div className='render'>
-                    <Select 
-                        options={selectOptions}
-                    />
-                    <Bar options={options} data={data} />
+                    <div className='select-box'>
+                        地區
+                        <Select 
+                            className="select-option" 
+                            options={districtObjArray}
+                            defaultValue={districtObjArray[0].value}
+                            placeholder={districtObjArray[0].value}
+                            onChange = {e => setDistrict(e.value)}
+                        />
+                    </div>
+                    <Bar options={options} data={chartData} />
                 </div>
             </main>
         </>

@@ -10,6 +10,16 @@ main {
     flex-direction: column;
     align-items: center;
 }
+.select-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.select-option {
+    width: 200px;
+    margin-left: .3em;
+
+}
 @media only screen and (max-width: 500px) {
 
 }
