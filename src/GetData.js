@@ -35,14 +35,24 @@ export const GetData = () => {
     for (let i = 0; i < districtArray.length; i++) {
         districtObjArray.push({value: districtArray[i], label: districtArray[i]})
     }
+    const countPeople = (district_name, res_array) => {
+        let result = res_array.filter(ele => ele.site_id == district_name)
+        return result;
+    }
 
-    // console.log(districtObjArray)
+    const [district, setDistrict] = useState(districtObjArray[0].value)
+    const [singleF, setSingleF] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_f, 10)), 0))
+    const [singleM, setSingleM] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_m, 10)), 0))
+    const [groupF, setGroupF] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
+    const [groupM, setGroupM] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
 
-    const [district, setDistrict] = useState(districtObjArray[0].data)
-    // const [singleF, setSingleF] = useState("")
-    // const [singleM, setSingleM] = useState("")
-    // const [groupF, setGroupF] = useState("")
-    // const [groupM, setGroupM] = useState("")
+    const changeDistrict = (dist) => {
+        setDistrict(dist);
+        setSingleF(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_f, 10)), 0))
+        setSingleM(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_m, 10)), 0))
+        setGroupF(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
+        setGroupM(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
+    }
 
     const options = {
         responsive: true,
@@ -54,8 +64,8 @@ export const GetData = () => {
     };
 
     const labels = ["共同生活戶", "個體生活戶"];
-    const female = [20, 59];
-    const male = [34, 17];
+    const male = [groupM, singleM];
+    const female = [groupF, singleF];
 
     const chartData = {
         labels,
@@ -86,7 +96,7 @@ export const GetData = () => {
                             options={districtObjArray}
                             defaultValue={districtObjArray[0].value}
                             placeholder={districtObjArray[0].value}
-                            onChange = {e => setDistrict(e.value)}
+                            onChange = {e => changeDistrict(e.value)}
                         />
                     </div>
                     <Bar options={options} data={chartData} />
