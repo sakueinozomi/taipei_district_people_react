@@ -9,7 +9,7 @@ import {
     Legend,
   } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import {data} from './data'
+import { data } from './data'
 import './LogoBar.css';
 import Select from 'react-select'
 
@@ -27,10 +27,13 @@ export const GetData = () => {
     if (isNaN(parseInt(res[0].statistic_yyy, 10))){
         res.shift()
     }
+
     const districtSet = new Set();
     let districtArray = [];
     let districtObjArray = [];
-    res.forEach(e => districtSet.add(e.site_id));
+    res.forEach(e => {
+        if (e.site_id.includes("臺北市")) districtSet.add(e.site_id)
+    });
     districtArray = [...districtSet]
     for (let i = 0; i < districtArray.length; i++) {
         districtObjArray.push({value: districtArray[i], label: districtArray[i]})
