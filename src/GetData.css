@@ -1,9 +1,10 @@
 main {
     background-color: #eeeeee;
-    width: 100%;
+    width: calc(100% - 300px);
     min-height: 500px;
     height: 100vh;
-    padding-top: 30px;
+    padding: 30px;
+
 }
 .render {
     display: flex;
@@ -20,6 +21,8 @@ main {
     margin-left: .3em;
 
 }
-@media only screen and (max-width: 500px) {
-
+@media only screen and (max-width: 800px) {
+    main {
+        width: 100%;
+    }
 }
