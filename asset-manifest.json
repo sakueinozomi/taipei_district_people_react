@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/taipei_district_people_react/static/css/main.96a65cbf.css",
-    "main.js": "/taipei_district_people_react/static/js/main.f0afa4f3.js",
+    "main.js": "/taipei_district_people_react/static/js/main.03bccd92.js",
     "static/js/787.8e4d2af8.chunk.js": "/taipei_district_people_react/static/js/787.8e4d2af8.chunk.js",
     "static/media/taipeilogo.png": "/taipei_district_people_react/static/media/taipeilogo.485cc5d8643acb6500df.png",
     "index.html": "/taipei_district_people_react/index.html",
     "main.96a65cbf.css.map": "/taipei_district_people_react/static/css/main.96a65cbf.css.map",
-    "main.f0afa4f3.js.map": "/taipei_district_people_react/static/js/main.f0afa4f3.js.map",
+    "main.03bccd92.js.map": "/taipei_district_people_react/static/js/main.03bccd92.js.map",
     "787.8e4d2af8.chunk.js.map": "/taipei_district_people_react/static/js/787.8e4d2af8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.96a65cbf.css",
-    "static/js/main.f0afa4f3.js"
+    "static/js/main.03bccd92.js"
   ]
 }
