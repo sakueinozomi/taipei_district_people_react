@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,8 +10,11 @@ import {
     Legend,
   } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 import { data } from './data'
 import './LogoBar.css';
+
 import Select from 'react-select'
 
 ChartJS.register(
@@ -57,6 +61,10 @@ export const GetData = () => {
         setGroupM(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
     }
 
+    const labels = ["共同生活戶", "個體生活戶"];
+    const male = [groupM, singleM];
+    const female = [groupF, singleF];
+
     const options = {
         responsive: true,
         plugins: {
@@ -66,10 +74,6 @@ export const GetData = () => {
         },
     };
 
-    const labels = ["共同生活戶", "個體生活戶"];
-    const male = [groupM, singleM];
-    const female = [groupF, singleF];
-
     const chartData = {
         labels,
         datasets: [
@@ -77,16 +81,16 @@ export const GetData = () => {
             label: "男",
             data: male,
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            hoverBackgroundColor: 'rgba(53, 162, 235, 0.8)',
           },
           {
             label: "女",
             data: female,
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            hoverBackgroundColor: 'rgba(255, 99, 132, 0.8)',
           }
-          
         ],
     };
-
 
     return (
         <>
@@ -102,7 +106,7 @@ export const GetData = () => {
                             onChange = {e => changeDistrict(e.value)}
                         />
                     </div>
-                    <Bar options={options} data={chartData} />
+                    <Bar options={options} data={chartData} plugins={[ChartDataLabels]}/>
                 </div>
             </main>
         </>
