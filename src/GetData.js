@@ -27,12 +27,14 @@ ChartJS.register(
 );
 
 export const GetData = () => {
+
+    // get and filter data 
     let res = data[0].result.records;
     if (isNaN(parseInt(res[0].statistic_yyy, 10))){
         res.shift()
     }
-
-    const districtSet = new Set();
+    // get the only district value
+    const districtSet = new Set(); 
     let districtArray = [];
     let districtObjArray = [];
     res.forEach(e => {
@@ -42,6 +44,7 @@ export const GetData = () => {
     for (let i = 0; i < districtArray.length; i++) {
         districtObjArray.push({value: districtArray[i], label: districtArray[i]})
     }
+    // this function can count the district people
     const countPeople = (district_name, res_array) => {
         let result = res_array.filter(ele => ele.site_id == district_name)
         return result;
@@ -52,7 +55,7 @@ export const GetData = () => {
     const [singleM, setSingleM] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_m, 10)), 0))
     const [groupF, setGroupF] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
     const [groupM, setGroupM] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
-
+    // re-count district people when select option change 
     const changeDistrict = (dist) => {
         setDistrict(dist);
         setSingleF(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_f, 10)), 0))
@@ -60,7 +63,8 @@ export const GetData = () => {
         setGroupF(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
         setGroupM(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
     }
-
+    
+    // the chart's function
     const labels = ["共同生活戶", "個體生活戶"];
     const male = [groupM, singleM];
     const female = [groupF, singleF];
@@ -68,9 +72,14 @@ export const GetData = () => {
     const options = {
         responsive: true,
         plugins: {
-          legend: {
-            position: 'top',
-          }
+            datalabels: {
+                anchor: "end",
+                clamp: "true",
+                align: "end",
+                font: {
+                    size: "16px"
+                }
+            }
         },
     };
 
@@ -106,7 +115,11 @@ export const GetData = () => {
                             onChange = {e => changeDistrict(e.value)}
                         />
                     </div>
-                    <Bar options={options} data={chartData} plugins={[ChartDataLabels]}/>
+                    <Bar 
+                        options={options} 
+                        data={chartData} 
+                        plugins={[ChartDataLabels]}
+                    />
                 </div>
             </main>
         </>

@@ -2,9 +2,9 @@ main {
     background-color: #eeeeee;
     width: calc(100% - 300px);
     min-height: 500px;
-    height: 100vh;
-    padding: 30px;
-
+    min-height: 100vh;
+    padding: 5vw 30px 30px;
+    height: fit-content;
 }
 .render {
     display: flex;
