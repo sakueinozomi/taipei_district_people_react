@@ -4,8 +4,6 @@ import { GetData } from "./GetData";
 import { LogoBar } from "./LogoBar"
 
 function App() {
-  const [query, setQuery] = useState({})
-  
 
   return (
     <div className="app">

@@ -49,19 +49,22 @@ export const GetData = () => {
         let result = res_array.filter(ele => ele.site_id == district_name)
         return result;
     }
-
+    // count people result
     const [district, setDistrict] = useState(districtObjArray[0].value)
-    const [singleF, setSingleF] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_f, 10)), 0))
-    const [singleM, setSingleM] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_m, 10)), 0))
-    const [groupF, setGroupF] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
-    const [groupM, setGroupM] = useState(countPeople(district, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
+    const countPeopleResult = countPeople(district, res);
+    
+    const [singleF, setSingleF] = useState(countPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_single_f, 10)), 0))
+    const [singleM, setSingleM] = useState(countPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_single_m, 10)), 0))
+    const [groupF, setGroupF] = useState(countPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
+    const [groupM, setGroupM] = useState(countPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
     // re-count district people when select option change 
-    const changeDistrict = (dist) => {
+    const changeDistrict = (dist) => { 
         setDistrict(dist);
-        setSingleF(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_f, 10)), 0))
-        setSingleM(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_single_m, 10)), 0))
-        setGroupF(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
-        setGroupM(countPeople(dist, res).reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
+        let changedPeopleResult = countPeople(dist, res);
+        setSingleF(changedPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_single_f, 10)), 0))
+        setSingleM(changedPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_single_m, 10)), 0))
+        setGroupF(changedPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_f, 10)), 0))
+        setGroupM(changedPeopleResult.reduce(((prev, curr) => prev + parseInt(curr.household_ordinary_m, 10)), 0))
     }
     
     // the chart's function
@@ -75,10 +78,7 @@ export const GetData = () => {
             datalabels: {
                 anchor: "end",
                 clamp: "true",
-                align: "end",
-                font: {
-                    size: "16px"
-                }
+                align: "end"
             }
         },
     };
